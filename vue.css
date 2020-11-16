@@ -1,0 +1,18 @@
+.progress {
+    height: 30px;
+}
+
+.progress-bar {
+    transition: background-color .9s, width .3s;
+}
+
+.btn{
+    text-transform: uppercase;
+}
+.h2 {
+    font-weight: 300;
+}
+
+.list-group-item {
+    text-transform: uppercase;
+}

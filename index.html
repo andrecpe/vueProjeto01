@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>MATADOR DE MONSTROS</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="vue.css">
+	<link rel="icon" href="favicon.ico" type="image/ico" sizes="16x16">
+</head>
+<body>
+<div id="app">
+	<div class="container bg-light my-4 shadow border border-dark rounded">
+		<div class="d-flex flex-column justify-content-around my-3">
+			<div class="d-flex flex-column flex-grow-1 align-content-center mx-4">
+				<h2 class="h2">Jogador</h2>
+				<div class="progress mb-3">
+					<div class="progress-bar bg-success" :class="{'bg-danger': monsterLife < 20}" role="progressbar" :style="{width: playerLife+'%'}" :aria-valuenow="playerLife" aria-valuemin="0" aria-valuemax="100">{{ playerLife }}%</div>
+				</div>
+			</div>
+			<div class="d-flex flex-column flex-grow-1 align-content-center mx-4">
+				<h2 class="h2">Monstro</h2>
+				<div class="progress mb-3">
+					<div class="progress-bar bg-success" :class="{'bg-danger': monsterLife < 20}" role="progressbar" :style="{width: monsterLife+'%'}" :aria-valuenow="monsterLife" aria-valuemin="0" aria-valuemax="100">{{ monsterLife }}%</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container bg-light my-4 shadow border border-dark rounded d-flex flex-row justify-content-center" v-if="hasResult">
+		<div v-if="monsterLife === 0" class="alert alert-success my-3" role="alert"><h3 class="alert-heading">Você venceu!!! 😁</h3></div>
+		<div v-else class="alert alert-danger my-3" role="alert"><h3 class="alert-heading">Você perdeu! 😭</h3></div>
+	</div>
+	<div class="container bg-light my-4 shadow border border-dark rounded d-flex justify-content-center">
+		<template v-if="running">
+			<button type="button" class="btn btn-lg btn-danger m-3" @click="attack(false)">ataque</button>
+			<button type="button" class="btn btn-lg btn-warning m-3" @click="attack(true)">ataque especial</button>
+			<button type="button" class="btn btn-lg btn-success m-3" @click="healAndHurt">curar</button>
+			<button type="button" class="btn btn-lg btn-secondary m-3" @click="running = false">desistir</button>
+		</template>
+		<button type="button" class="btn btn-lg btn-primary my-3" @click="startGame" v-else>Iniciar Novo Jogo</button>
+	</div>
+	<div class="container bg-light my-4 shadow border border-dark rounded d-flex flex-column align-items-stretch" v-if="logs.length !== 0">
+		<ul class="list-group my-3">
+			<li v-for="log in logs" class="list-group-item text-center" :class="log.cls">{{ log.text }}</li>
+		</ul>
+	</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="vue.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</body>
+</html>
